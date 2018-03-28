@@ -1224,6 +1224,9 @@
                     <name>$PROJ_DIR$\..\Src\tasks\lock_status_task.c</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\tasks\lock_switch_task.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\tasks\report_task.c</name>
                 </file>
                 <file>

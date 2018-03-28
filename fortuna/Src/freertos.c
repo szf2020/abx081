@@ -57,6 +57,7 @@
 #include "report_task.h"
 #include "watch_dog_task.h"
 #include "lock_ctrl_task.h"
+#include "lock_switch_task.h"
 #include "lock_status_task.h"
 #include "door_status_task.h"
 #include "display_task.h"
@@ -256,6 +257,10 @@ static void create_user_tasks()
   osThreadDef(lock_status_task, lock_status_task, osPriorityNormal, 0, 128);
   lock_status_task_hdl = osThreadCreate(osThread(lock_status_task), NULL); 
   APP_ASSERT(lock_status_task_hdl);
+  
+  osThreadDef(lock_switch_task, lock_switch_task, osPriorityNormal, 0, 128);
+  lock_switch_task_hdl = osThreadCreate(osThread(lock_switch_task), NULL); 
+  APP_ASSERT(lock_switch_task_hdl);
   
   osThreadDef(door_status_task, door_status_task, osPriorityNormal, 0, 128);
   door_status_task_hdl = osThreadCreate(osThread(door_status_task), NULL); 

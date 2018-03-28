@@ -1,4 +1,4 @@
-"D:\development\st\stm32\src_code\abx081\fortuna\Src\tasks\fan_ctrl_task.c"
+"D:\development\st\stm32\src_code\abx081\fortuna\Src\tasks\lock_switch_task.c"
 -std=c11
 -ferror-limit=0
 -I

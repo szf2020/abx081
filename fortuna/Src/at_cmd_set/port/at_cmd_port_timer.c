@@ -15,9 +15,12 @@ osTimerId at_cmd_timer_id;
 
 void at_cmd_port_timer_init()
 {
+ if(at_cmd_timer_id==NULL)
+ {
  osTimerDef(at_cmd_timer,at_cmd_port_timer_expired);
  at_cmd_timer_id=osTimerCreate(osTimer(at_cmd_timer),osTimerOnce,0);
  APP_ASSERT(at_cmd_timer_id);
+ }
 }
 
 void at_cmd_port_timer_35_start()

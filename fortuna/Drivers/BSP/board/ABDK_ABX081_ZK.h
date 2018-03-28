@@ -1,5 +1,5 @@
-#ifndef  __ABDK_ZNHG_ZK_H__
-#define  __ABDK_ZNHG_ZK_H__
+#ifndef  __ABDK_ABX081_ZK_H__
+#define  __ABDK_ABX081_ZK_H__
 #include "gpio.h"
 #include "usart.h"
 #include "adc.h"
@@ -42,7 +42,7 @@ typedef enum
  DOOR_CTL_UNLOCK=GPIO_PIN_RESET,
  DOOR_STATUS_UNLOCK=GPIO_PIN_SET,
  DOOR_STATUS_LOCK=GPIO_PIN_RESET,
-  /*门的状态*/
+ /*门的状态*/
  DOOR_STATUS_OPEN=GPIO_PIN_SET,
  DOOR_STATUS_CLOSE=GPIO_PIN_RESET,
  /*灯条*/
@@ -65,7 +65,7 @@ typedef enum
  COMPRESSOR_PWR_CTL_OFF=GPIO_PIN_RESET,
  COMPRESSOR_PWR_STATUS_ON=GPIO_PIN_SET,
  COMPRESSOR_PWR_STATUS_OFF=GPIO_PIN_RESET,
-  /*GPRS模块*/
+ /*GPRS模块*/
  GPRS_MODULE_PWR_CTL_ON=GPIO_PIN_SET,
  GPRS_MODULE_PWR_CTL_OFF=GPIO_PIN_RESET,
 }bsp_status_t;
