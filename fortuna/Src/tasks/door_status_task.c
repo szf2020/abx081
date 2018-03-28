@@ -4,6 +4,7 @@
 #include "app_common.h"
 #include "ABDK_ABX081_ZK.h"
 #include "lock_ctrl_task.h"
+#include "lock_switch_task.h"
 #include "door_status_task.h"
 #include "glass_pwr_task.h"
 #include "fan_ctrl_task.h"
@@ -37,10 +38,11 @@ void door_status_task(void const * argument)
     if(door_status!=DOOR_STATUS_TASK_DOOR_STATUS_OPEN)
     {
     door_status=DOOR_STATUS_TASK_DOOR_STATUS_OPEN;
-    /*向锁/风扇/加热玻璃发送门开启信号*/
+    /*向锁/风扇/加热玻璃/锁按键任务发送门开启信号*/
     osSignalSet(lock_ctrl_task_hdl,LOCK_CTRL_TASK_DOOR_STATUS_OPEN_SIGNAL);
     osSignalSet(fan_ctrl_task_hdl,FAN_CTRL_TASK_DOOR_STATUS_OPEN_SIGNAL);
     osSignalSet(glass_pwr_task_hdl,GLASS_PWR_TASK_DOOR_STATUS_OPEN_SIGNAL);
+    osSignalSet(lock_switch_task_hdl,LOCK_SWITCH_TASK_DOOR_STATUS_OPEN_SIGNAL);
     }
   }
   if(door_up_status==door_dwn_status && door_up_status==DOOR_STATUS_CLOSE)
