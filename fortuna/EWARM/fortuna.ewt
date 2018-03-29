@@ -1183,6 +1183,12 @@
                 </file>
             </group>
             <group>
+                <name>flash</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\flash\flash.c</name>
+                </file>
+            </group>
+            <group>
                 <name>json</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\json\json.c</name>

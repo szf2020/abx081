@@ -354,6 +354,7 @@
                     <state>$PROJ_DIR$/../Src/at_cmd_set</state>
                     <state>$PROJ_DIR$/../Src/at_cmd_set/port</state>
                     <state>$PROJ_DIR$/../Src/json</state>
+                    <state>$PROJ_DIR$/../Src/flash</state>
                     <state>$PROJ_DIR$/../libraries/app_log</state>
                     <state>$PROJ_DIR$/../libraries/app_error</state>
                     <state>$PROJ_DIR$/../libraries/SEGGER_RTT_V612j/RTT</state>
@@ -1060,6 +1061,12 @@
                 </group>
                 <file>
                     <name>$PROJ_DIR$\..\Src\at_cmd_set\at_cmd_set.c</name>
+                </file>
+            </group>
+            <group>
+                <name>flash</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\flash\flash.c</name>
                 </file>
             </group>
             <group>

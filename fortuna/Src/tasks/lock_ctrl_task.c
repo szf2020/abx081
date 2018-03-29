@@ -56,6 +56,8 @@ static uint8_t lock_type=LOCK_CTRL_TASK_LOCK_TYPE_AUTO;
 static uint8_t lock_exception=LOCK_CTRL_TASK_LOCK_EXCEPTION_NONE;
 static uint8_t unlock_exception_cnt;
 
+static uint8_t is_enable_lock_lock=APP_TRUE;
+
 /*获取锁的异常状态*/
 uint8_t lock_ctrl_task_get_lock_exception()
 {
@@ -242,6 +244,7 @@ void lock_ctrl_task(void const * argument)
    if(sig.value.signals & LOCK_CTRL_TASK_DOOR_STATUS_OPEN_SIGNAL)
    {
     APP_LOG_DEBUG("门状态变化->打开.\r\n");
+    is_enable_lock_lock=APP_FALSE;
     /*收到门打开后 停止自动关锁定时器*/
     lock_type=LOCK_CTRL_TASK_LOCK_TYPE_MAN;/*只要有人打开门 手动关闭*/
     auto_lock_timer_stop();
@@ -251,6 +254,7 @@ void lock_ctrl_task(void const * argument)
    if(sig.value.signals & LOCK_CTRL_TASK_DOOR_STATUS_CLOSE_SIGNAL)
    {
     APP_LOG_DEBUG("门状态变化->关闭.\r\n");
+    is_enable_lock_lock=APP_TRUE;
     unlock_timer_stop();
     lock_timer_start();
     lock_ctrl_task_lock_lock();/*马上尝试关锁*/
@@ -258,6 +262,9 @@ void lock_ctrl_task(void const * argument)
    if(sig.value.signals & LOCK_CTRL_TASK_LOCK_STATUS_LOCK_SIGNAL)
    {
     APP_LOG_DEBUG("锁状态变化->关锁.\r\n");
+    /*首先判断是否可以上锁*/
+    if(is_enable_lock_lock==APP_TRUE)
+    {
     /*取消锁异常状态*/
     lock_exception=LOCK_CTRL_TASK_LOCK_EXCEPTION_NONE;
     lock_timer_stop();
@@ -270,6 +277,11 @@ void lock_ctrl_task(void const * argument)
     osSignalSet(shopping_task_hdl,SHOPPING_TASK_AUTO_LOCK_LOCK_SUCCESS_SIGNAL);
     else
     osSignalSet(shopping_task_hdl,SHOPPING_TASK_MAN_LOCK_LOCK_SUCCESS_SIGNAL);
+    }
+    else
+    {
+     APP_LOG_WARNING("锁状态关闭非法.因为门状态不匹配.\r\n"); 
+    }
    } 
    if(sig.value.signals & LOCK_CTRL_TASK_LOCK_STATUS_UNLOCK_SIGNAL)
    {

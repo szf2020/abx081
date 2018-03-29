@@ -27,6 +27,7 @@ osDelay(LOCK_SWITCH_TASK_INTERVAL);
 lock_sw_status=bsp_get_lock_sw_status();
 if(lock_sw_status==SW_STATUS_PRESS)
 {
+ APP_LOG_DEBUG("开门按键开门.\r\n");
  BSP_LOCK_CTL(LOCK_CTL_UNLOCK);
  /*等待门被打开的信号 如果没有被打开就自己关上*/
  sig=osSignalWait(LOCK_SWITCH_TASK_DOOR_STATUS_OPEN_SIGNAL,LOCK_SWITCH_TASK_WAIT_TIMEOUT);

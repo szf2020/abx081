@@ -2,6 +2,7 @@
 #include "task.h"
 #include "cmsis_os.h"
 #include "app_common.h"
+#include "flash.h"
 #include "string.h"
 #include "json.h"
 #include "service.h"
@@ -87,7 +88,36 @@ void shopping_task(void const * argument)
  service_cpy_imei_str_to(report_open.pid.value);
  service_cpy_imei_str_to(report_close.pid.value);
  */
- 
+ /*上电等待关门*/
+  while(1)
+  {
+  sig=osSignalWait(SHOPPING_TASK_ALL_SIGNALS,osWaitForever);
+  /*关门成功*/
+  if(sig.status==osEventSignal)
+  {
+   if(sig.value.signals & SHOPPING_TASK_AUTO_LOCK_LOCK_SUCCESS_SIGNAL)
+   {
+   APP_LOG_DEBUG("购物任务收到自动关门信号.\r\n");
+   json_set_item_name_value(&report_close.auto_lock,NULL,"0");
+   break;
+   }
+   if(sig.value.signals & SHOPPING_TASK_MAN_LOCK_LOCK_SUCCESS_SIGNAL)
+   {
+   APP_LOG_DEBUG("购物任务收到手动关门信号.\r\n");
+   json_set_item_name_value(&report_close.auto_lock,NULL,"1");
+   break;
+   }
+  }
+  } 
+ /*首先查看是否保存未上报信息*/
+ result=flash_read_unreport_close_info(report_close.open_uuid.value,report_close.user_pin.value,report_close.type.value);
+ /*如果有未上报*/
+ if(result==APP_TRUE)
+ {
+  APP_LOG_WARNING("存在未上报信息.\r\n");
+  goto report_close;  
+ }
+ APP_LOG_WARNING("不存在未上报信息.流程继续...\r\n");
  while(1)
  {
   osDelay(SHOPPING_TASK_INTERVAL); 
@@ -147,7 +177,7 @@ void shopping_task(void const * argument)
   {
   json_set_item_name_value(&report_open.open,NULL,"true");
   json_set_item_name_value(&report_open.error,NULL,"0");
-  APP_LOG_DEBUG("开锁成功.\r\n"); 
+  APP_LOG_DEBUG("开锁成功.\r\n");
   }
   else
   {
@@ -178,6 +208,9 @@ void shopping_task(void const * argument)
   osDelay(SHOPPING_TASK_RETRY_TIMEOUT);
   } 
   APP_LOG_INFO("上报开锁状态成功.\r\n");
+  
+  flash_write_unreport_close_info(report_close.open_uuid.value,report_close.user_pin.value,report_close.type.value);
+  
   /*服务器回应code:"0"*/
   /*等待关门*/
   while(1)
@@ -200,7 +233,8 @@ void shopping_task(void const * argument)
    }
   }
   }
-  
+
+ report_close:  
   /*上报关门状态*/  
   shopping_request.ptr_url="\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportSaleSkuInfo\"";
   if(json_body_to_str(&report_close,shopping_request.param)!=APP_TRUE)
@@ -223,6 +257,7 @@ void shopping_task(void const * argument)
   APP_LOG_ERROR("上报关门状态失败.\r\n");
   osDelay(SHOPPING_TASK_RETRY_TIMEOUT);
   }
+  flash_erase_unreport_close_info();
   APP_LOG_INFO("上报关门状态成功.\r\n");
  }
 }

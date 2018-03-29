@@ -151,7 +151,7 @@ __weak void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTask
    /* Run time stack overflow checking is performed if
    configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
    called if a stack overflow is detected. */
-  APP_LOG_ERROR("%s任务栈溢出.\r\n",pcTaskName);
+  APP_LOG_ERROR("%s任务栈溢�?.\r\n",pcTaskName);
   APP_ERROR_HANDLER(0);
 }
 /* USER CODE END 4 */
@@ -195,7 +195,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityAboveNormal, 0, 256);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -217,6 +217,7 @@ void StartDefaultTask(void const * argument)
   APP_LOG_DEBUG("创建用户任务...\r\n");
   
   create_user_tasks();
+
   for(;;)
   {
     osDelay(1);
@@ -298,7 +299,7 @@ static void create_user_tasks()
   debug_task_hdl = osThreadCreate(osThread(debug_task), NULL); 
   APP_ASSERT(debug_task_hdl);
   
-  APP_LOG_INFO("@所有的任务创建成功.\r\n"); 
+  APP_LOG_INFO("@�?有的任务创建成功.\r\n"); 
 }
 /* USER CODE END Application */
 

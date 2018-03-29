@@ -10,6 +10,7 @@
 #include "light_ctrl_task.h"
 #include "glass_pwr_task.h"
 #include "ups_status_task.h"
+#include "flash.h"
 #include "debug_task.h"
 #include "cpu_utils.h"
 #include "ABDK_ABX081_ZK.h"
@@ -291,6 +292,20 @@ void debug_task(void const * argument)
  }
  
  APP_LOG_DEBUG("CPU负载：%d %%.\r\n",osGetCPUUsage());
+ continue;
+ }
+ 
+ /*flash测试*/
+ cmd_len=strlen(DEBUG_TASK_CMD_FLASH_ERASE);
+ if(memcmp((const char*)cmd,DEBUG_TASK_CMD_FLASH_ERASE,cmd_len)==0)
+ { 
+ if(recv_len !=cmd_len+DEBUG_TASK_CMD_FLASH_ERASE_PARAM_LEN)
+ {
+  APP_LOG_ERROR("擦除flash命令长度非法.\r\n");
+  continue;
+ }
+ 
+ flash_erase_unreport_close_info();
  continue;
  }
  

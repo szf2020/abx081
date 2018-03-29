@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>D:\development\st\stm32\src_code\fortuna\fortuna\\fortuna</ProjectName>
+<ProjectName>D:\development\st\stm32\src_code\abx081\fortuna\\fortuna</ProjectName>
 <CMSIS>..\Drivers\CMSIS</CMSIS>
 <HAL_Driver>C:\Users\wkxbo\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.0\Drivers\CMSIS</HAL_Driver>
 
@@ -10,6 +10,8 @@
 
 <filestoremove>
 	<file>
+	   		<name>..\Src\i2c.c</name>
+	   		<name>..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_i2c.c</name>
 	</file>
 </filestoremove>
 
