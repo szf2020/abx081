@@ -295,7 +295,7 @@ static void create_user_tasks()
   display_task_hdl = osThreadCreate(osThread(display_task), NULL); 
   APP_ASSERT(display_task_hdl);
   
-  osThreadDef(debug_task, debug_task, osPriorityNormal, 0, 256);
+  osThreadDef(debug_task, debug_task, osPriorityAboveNormal, 0, 256);
   debug_task_hdl = osThreadCreate(osThread(debug_task), NULL); 
   APP_ASSERT(debug_task_hdl);
   

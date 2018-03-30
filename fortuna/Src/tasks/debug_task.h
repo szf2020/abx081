@@ -40,9 +40,15 @@ void debug_task(void const * argument);
 #define  DEBUG_TASK_CMD_GET_LOCK_STATE_PARAM_LEN        0
 #define  DEBUG_TASK_CMD_GET_DOOR_STATE_PARAM_LEN        0
 #define  DEBUG_TASK_CMD_CPU_LOAD_PARAM_LEN              0
+#define  DEBUG_TASK_CMD_PWR_ON_FAN_PARAM_LEN            0
+#define  DEBUG_TASK_CMD_PWR_OFF_FAN_PARAM_LEN           0
+
 #define  DEBUG_TASK_CMD_FLASH_READ_PARAM_LEN            0
 #define  DEBUG_TASK_CMD_FLASH_WRITE_PARAM_LEN           0
 #define  DEBUG_TASK_CMD_FLASH_ERASE_PARAM_LEN           0
+
+
+
 
 /*调试任务命令值定义*/
 #define  DEBUG_TASK_CMD_SET_ADDR                       "设置地址"    
@@ -78,6 +84,8 @@ void debug_task(void const * argument);
 #define  DEBUG_TASK_CMD_GET_LOCK_STATE                 "锁状态"
 #define  DEBUG_TASK_CMD_GET_DOOR_STATE                 "门状态"
 #define  DEBUG_TASK_CMD_CPU_LOAD                       "cpu"
+#define  DEBUG_TASK_CMD_PWR_ON_FAN                     "打开风扇"
+#define  DEBUG_TASK_CMD_PWR_OFF_FAN                    "关闭风扇"
 
 #define  DEBUG_TASK_CMD_FLASH_READ                      "fr"
 #define  DEBUG_TASK_CMD_FLASH_WRITE                     "fw"

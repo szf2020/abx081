@@ -123,7 +123,7 @@ void shopping_task(void const * argument)
   osDelay(SHOPPING_TASK_INTERVAL); 
  
   /*拉取开门指令*/
-  shopping_request.ptr_url="\"URL\",\"http://rack-brain-app-pre.jd.com/brain/pullOpenInstruction\"";
+  shopping_request.ptr_url=PULL_OPEN_URL;
   if(json_body_to_str(&pull_open,shopping_request.param)!=APP_TRUE)
   {
   APP_LOG_ERROR("pull open param err.\r\n");
@@ -187,7 +187,7 @@ void shopping_task(void const * argument)
   }
   
  /*上报开锁状态*/
-  shopping_request.ptr_url="\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportLockOpenStatus\"";
+  shopping_request.ptr_url=REPORT_OPEN_URL;
   if(json_body_to_str(&report_open,shopping_request.param)!=APP_TRUE)
   {
   APP_LOG_ERROR("report open param err.\r\n");
@@ -236,7 +236,7 @@ void shopping_task(void const * argument)
 
  report_close:  
   /*上报关门状态*/  
-  shopping_request.ptr_url="\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportSaleSkuInfo\"";
+  shopping_request.ptr_url=REPORT_CLOSE_URL;
   if(json_body_to_str(&report_close,shopping_request.param)!=APP_TRUE)
   {
   APP_LOG_ERROR("report close param err.\r\n");

@@ -22,4 +22,8 @@ extern osThreadId shopping_task_hdl;
 
 /*同步事件*/
 #define  SHOPPING_TASK_SYNC_EVT                           (1<<1)
+
+#define  PULL_OPEN_URL                                    "\"URL\",\"http://rack-brain-app-pre.jd.com/brain/pullOpenInstruction\""
+#define  REPORT_OPEN_URL                                  "\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportLockOpenStatus\""
+#define  REPORT_CLOSE_URL                                 "\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportSaleSkuInfo\""
 #endif

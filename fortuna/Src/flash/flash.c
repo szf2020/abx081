@@ -33,10 +33,15 @@ void FLASH_CRITICAL_REGION_EXIT()
   }                                  
 }
 
+
+#define  ADDR_FLASH_PAGE_253                0x8007e000  
+#define  ADDR_FLASH_PAGE_254                0x8007e800
+#define  ADDR_FLASH_PAGE_255                0x8007f000
+
 /*FLASH_PAGE_SIZE*/
-#define FLASH_OPEN_UUID_START_ADDR          ADDR_FLASH_PAGE_125   
-#define FLASH_USER_PIN_START_ADDR           ADDR_FLASH_PAGE_126  
-#define FLASH_TYPE_START_ADDR               ADDR_FLASH_PAGE_127 
+#define FLASH_OPEN_UUID_START_ADDR          ADDR_FLASH_PAGE_253   
+#define FLASH_USER_PIN_START_ADDR           ADDR_FLASH_PAGE_254  
+#define FLASH_TYPE_START_ADDR               ADDR_FLASH_PAGE_255 
 volatile uint16_t data16 = 0;
 
 #define  FLASH_OPEN_UUID_STR_LEN            50
@@ -48,6 +53,19 @@ static uint8_t user_pin[FLASH_USER_PIN_STR_LEN];
 static uint8_t type[FLASH_TYPE_STR_LEN];
 
 static FLASH_EraseInitTypeDef EraseInitStruct;
+
+
+void FLASH_If_Init(void)
+{
+  /* Unlock the Program memory */
+  HAL_FLASH_Unlock();
+
+  /* Clear all FLASH flags */
+  __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR);
+  /* Unlock the Program memory */
+  HAL_FLASH_Lock();
+}
+
 
 /*读取未保存上报信息*/
 app_bool_t flash_read_unreport_close_info(uint8_t *ptr_open_uuid,uint8_t *ptr_user_pin,uint8_t *ptr_type)
@@ -146,9 +164,9 @@ return result;
 app_bool_t flash_erase_unreport_close_info()
 {
  uint32_t page_err;
- 
- FLASH_CRITICAL_REGION_ENTER();
  //HAL_FLASH_Unlock();
+ FLASH_CRITICAL_REGION_ENTER();
+
 
  EraseInitStruct.TypeErase   = FLASH_TYPEERASE_PAGES;
  EraseInitStruct.PageAddress = FLASH_OPEN_UUID_START_ADDR;
@@ -184,6 +202,7 @@ app_bool_t flash_erase_unreport_close_info()
  //HAL_FLASH_Lock();
  APP_LOG_WARNING("open uuid和user pin和type信息擦除成功.\r\n");
  FLASH_CRITICAL_REGION_EXIT();
+
  return APP_TRUE;
 }
 
@@ -265,8 +284,10 @@ write_cnt--;
 ptr_type+=2;
 addr_write+=2;
 }
-FLASH_CRITICAL_REGION_EXIT();
+
 //HAL_FLASH_Lock();
+FLASH_CRITICAL_REGION_EXIT();
+
 APP_LOG_WARNING("open uuid/user pin/type 信息保存成功.\r\n");
 
 return result;

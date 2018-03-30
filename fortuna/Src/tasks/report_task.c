@@ -92,7 +92,7 @@ void report_task(void const * argument)
   }
   
   /*上报开始*/
-  report_request.ptr_url="\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportDeviceStatus\"";
+  report_request.ptr_url=REPORT_DEVICE_URL;
   if(json_body_to_str(&report_device,report_request.param)!=APP_TRUE)
   {
   APP_LOG_ERROR("report param err.\r\n");

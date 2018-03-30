@@ -25,7 +25,7 @@
 #define  SERVICE_RESET_HOLD_ON_TIME                     3000
 #define  SERVICE_RESET_WAIT_TIME                        15000/*等待15秒*/
 
-#define  HTTP_RESPONSE_TIMEOUT                          10000/*10秒超时*/
+#define  HTTP_RESPONSE_TIMEOUT                          15000/*15秒超时*/
 
 #define  SIM800A_MODULE                                 1
 #define  SIM900A_MODULE                                 2

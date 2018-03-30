@@ -1064,6 +1064,9 @@
                 </file>
             </group>
             <group>
+                <name>eeprom</name>
+            </group>
+            <group>
                 <name>flash</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\flash\flash.c</name>
