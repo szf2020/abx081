@@ -43,9 +43,9 @@ void debug_task(void const * argument);
 #define  DEBUG_TASK_CMD_PWR_ON_FAN_PARAM_LEN            0
 #define  DEBUG_TASK_CMD_PWR_OFF_FAN_PARAM_LEN           0
 
-#define  DEBUG_TASK_CMD_FLASH_READ_PARAM_LEN            0
-#define  DEBUG_TASK_CMD_FLASH_WRITE_PARAM_LEN           0
-#define  DEBUG_TASK_CMD_FLASH_ERASE_PARAM_LEN           0
+#define  DEBUG_TASK_CMD_EEPROM_READ_PARAM_LEN            0
+#define  DEBUG_TASK_CMD_EEPROM_WRITE_PARAM_LEN           0
+#define  DEBUG_TASK_CMD_EEPROM_ERASE_PARAM_LEN           0
 
 
 
@@ -87,9 +87,9 @@ void debug_task(void const * argument);
 #define  DEBUG_TASK_CMD_PWR_ON_FAN                     "打开风扇"
 #define  DEBUG_TASK_CMD_PWR_OFF_FAN                    "关闭风扇"
 
-#define  DEBUG_TASK_CMD_FLASH_READ                      "fr"
-#define  DEBUG_TASK_CMD_FLASH_WRITE                     "fw"
-#define  DEBUG_TASK_CMD_FLASH_ERASE                     "fe"
+#define  DEBUG_TASK_CMD_EEPROM_READ                      "er"
+#define  DEBUG_TASK_CMD_EEPROM_WRITE                     "ew"
+#define  DEBUG_TASK_CMD_EEPROM_ERASE                     "ee"
 
 #define  DEBUG_TASK_WAIT_TIMEOUT                       550
 

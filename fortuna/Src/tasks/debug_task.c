@@ -11,7 +11,7 @@
 #include "fan_ctrl_task.h"
 #include "glass_pwr_task.h"
 #include "ups_status_task.h"
-#include "flash.h"
+#include "eeprom.h"
 #include "debug_task.h"
 #include "cpu_utils.h"
 #include "ABDK_ABX081_ZK.h"
@@ -296,17 +296,17 @@ void debug_task(void const * argument)
  continue;
  }
  
- /*flash测试*/
- cmd_len=strlen(DEBUG_TASK_CMD_FLASH_ERASE);
- if(memcmp((const char*)cmd,DEBUG_TASK_CMD_FLASH_ERASE,cmd_len)==0)
+ /*eeprom测试*/
+ cmd_len=strlen(DEBUG_TASK_CMD_EEPROM_READ);
+ if(memcmp((const char*)cmd,DEBUG_TASK_CMD_EEPROM_READ,cmd_len)==0)
  { 
- if(recv_len !=cmd_len+DEBUG_TASK_CMD_FLASH_ERASE_PARAM_LEN)
+ if(recv_len !=cmd_len+DEBUG_TASK_CMD_EEPROM_READ_PARAM_LEN)
  {
-  APP_LOG_ERROR("擦除flash命令长度非法.\r\n");
+  APP_LOG_ERROR("读eeprom命令长度非法.\r\n");
   continue;
  }
- 
- flash_erase_unreport_close_info();
+ extern info_head_t info_head;
+ eeprom_read_unreport_close_info_head(&info_head);
  continue;
  }
  

@@ -8,6 +8,7 @@
 #include "lock_ctrl_task.h"
 #include "fan_ctrl_task.h"
 #include "glass_pwr_task.h"
+#include "shopping_task.h"
 #define APP_LOG_MODULE_NAME   "[ups_status]"
 #define APP_LOG_MODULE_LEVEL   APP_LOG_LEVEL_DEBUG    
 #include "app_log.h"
@@ -50,6 +51,7 @@ if(status1==UPS_PWR_STATUS_ON && status2==UPS_PWR_STATUS_ON)
   osSignalSet(light_ctrl_task_hdl,LIGHT_CTRL_TASK_UPS_PWR_ON_SIGNAL);
   osSignalSet(glass_pwr_task_hdl,GLASS_PWR_TASK_UPS_PWR_ON_SIGNAL);
   osSignalSet(fan_ctrl_task_hdl,FAN_CTRL_TASK_UPS_PWR_ON_SIGNAL);
+  osSignalSet(shopping_task_hdl,SHOPPING_TASK_UPS_PWR_ON_SIGNAL);
  }
  }
 }
@@ -67,6 +69,7 @@ else
   osSignalSet(light_ctrl_task_hdl,LIGHT_CTRL_TASK_UPS_PWR_OFF_SIGNAL);
   osSignalSet(glass_pwr_task_hdl,GLASS_PWR_TASK_UPS_PWR_OFF_SIGNAL);
   osSignalSet(fan_ctrl_task_hdl,FAN_CTRL_TASK_UPS_PWR_OFF_SIGNAL);
+  osSignalSet(shopping_task_hdl,SHOPPING_TASK_UPS_PWR_OFF_SIGNAL);
  }
  }
 }

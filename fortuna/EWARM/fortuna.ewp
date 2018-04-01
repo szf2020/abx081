@@ -354,7 +354,7 @@
                     <state>$PROJ_DIR$/../Src/at_cmd_set</state>
                     <state>$PROJ_DIR$/../Src/at_cmd_set/port</state>
                     <state>$PROJ_DIR$/../Src/json</state>
-                    <state>$PROJ_DIR$/../Src/flash</state>
+                    <state>$PROJ_DIR$/../Src/eeprom</state>
                     <state>$PROJ_DIR$/../libraries/app_log</state>
                     <state>$PROJ_DIR$/../libraries/app_error</state>
                     <state>$PROJ_DIR$/../libraries/SEGGER_RTT_V612j/RTT</state>
@@ -714,7 +714,7 @@
                 </option>
                 <option>
                     <name>IlinkOutputFile</name>
-                    <state>abx081.out</state>
+                    <state>fortuna.out</state>
                 </option>
                 <option>
                     <name>IlinkDebugInfoEnable</name>
@@ -1065,11 +1065,8 @@
             </group>
             <group>
                 <name>eeprom</name>
-            </group>
-            <group>
-                <name>flash</name>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\flash\flash.c</name>
+                    <name>$PROJ_DIR$\..\Src\eeprom\eeprom.c</name>
                 </file>
             </group>
             <group>
@@ -1151,6 +1148,9 @@
                 <name>$PROJ_DIR$\..\Src\gpio.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\i2c.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\iwdg.c</name>
             </file>
             <file>
@@ -1230,6 +1230,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_i2c.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_iwdg.c</name>

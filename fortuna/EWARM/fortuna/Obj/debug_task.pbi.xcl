@@ -28,7 +28,7 @@ D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/at_cmd_set/port
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/json
 -I
-D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/flash
+D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/eeprom
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../libraries/app_log
 -I
@@ -80,7 +80,7 @@ D:\development\st\stm32\src_code\abx081\fortuna\Src\at_cmd_set\port
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\Src\json
 -I
-D:\development\st\stm32\src_code\abx081\fortuna\Src\flash
+D:\development\st\stm32\src_code\abx081\fortuna\Src\eeprom
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\libraries\app_log
 -I

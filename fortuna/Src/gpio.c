@@ -86,14 +86,13 @@ void MX_GPIO_Init(void)
                           |COMPRESSOR_CTL_POS_Pin|DIGIT_LED_C_CTL_POS_Pin|DIGIT_LED_E_CTL_POS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SYS_LED_CTL_POS_GPIO_Port, SYS_LED_CTL_POS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, SYS_LED_CTL_POS_Pin|GPRS_MODULE_PWR_CTL_POS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GLASS_PWR_CTL_POS_Pin|DOOR_CTL_POS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, DIGIT_LED_DP_CTL_POS_Pin|DIGIT_LED_D_CTL_POS_Pin|DIGIT_LED_COM1_CTL_POS_Pin|DIGIT_LED_COM2_CTL_POS_Pin 
-                          |GPRS_MODULE_PWR_CTL_POS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, DIGIT_LED_DP_CTL_POS_Pin|DIGIT_LED_D_CTL_POS_Pin|DIGIT_LED_COM1_CTL_POS_Pin|DIGIT_LED_COM2_CTL_POS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, LOCK_CTL_POS_Pin|DIGIT_LED_G_CTL_POS_Pin|DIGIT_LED_F_CTL_POS_Pin|RS485_RT_CTL_POS_Pin, GPIO_PIN_RESET);
@@ -109,11 +108,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = SYS_LED_CTL_POS_Pin;
+  /*Configure GPIO pins : PAPin PAPin */
+  GPIO_InitStruct.Pin = SYS_LED_CTL_POS_Pin|GPRS_MODULE_PWR_CTL_POS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(SYS_LED_CTL_POS_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = LOCK_SW_STATUS_POS_Pin;
@@ -133,10 +132,8 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin PBPin PBPin 
-                           PBPin */
-  GPIO_InitStruct.Pin = DIGIT_LED_DP_CTL_POS_Pin|DIGIT_LED_D_CTL_POS_Pin|DIGIT_LED_COM1_CTL_POS_Pin|DIGIT_LED_COM2_CTL_POS_Pin 
-                          |GPRS_MODULE_PWR_CTL_POS_Pin;
+  /*Configure GPIO pins : PBPin PBPin PBPin PBPin */
+  GPIO_InitStruct.Pin = DIGIT_LED_DP_CTL_POS_Pin|DIGIT_LED_D_CTL_POS_Pin|DIGIT_LED_COM1_CTL_POS_Pin|DIGIT_LED_COM2_CTL_POS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);

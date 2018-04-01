@@ -1184,11 +1184,8 @@
             </group>
             <group>
                 <name>eeprom</name>
-            </group>
-            <group>
-                <name>flash</name>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\flash\flash.c</name>
+                    <name>$PROJ_DIR$\..\Src\eeprom\eeprom.c</name>
                 </file>
             </group>
             <group>
@@ -1270,6 +1267,9 @@
                 <name>$PROJ_DIR$\..\Src\gpio.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\i2c.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\iwdg.c</name>
             </file>
             <file>
@@ -1349,6 +1349,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_i2c.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_iwdg.c</name>

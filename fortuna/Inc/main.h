@@ -112,12 +112,12 @@
 #define DIGIT_LED_A_CTL_POS_GPIO_Port GPIOG
 #define DIGIT_LED_B_CTL_POS_Pin GPIO_PIN_8
 #define DIGIT_LED_B_CTL_POS_GPIO_Port GPIOG
+#define GPRS_MODULE_PWR_CTL_POS_Pin GPIO_PIN_10
+#define GPRS_MODULE_PWR_CTL_POS_GPIO_Port GPIOA
 #define DOOR_UP_STATUS_POS_Pin GPIO_PIN_0
 #define DOOR_UP_STATUS_POS_GPIO_Port GPIOD
 #define RS485_RT_CTL_POS_Pin GPIO_PIN_1
 #define RS485_RT_CTL_POS_GPIO_Port GPIOD
-#define GPRS_MODULE_PWR_CTL_POS_Pin GPIO_PIN_7
-#define GPRS_MODULE_PWR_CTL_POS_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

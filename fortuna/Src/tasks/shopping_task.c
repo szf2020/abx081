@@ -2,7 +2,7 @@
 #include "task.h"
 #include "cmsis_os.h"
 #include "app_common.h"
-#include "flash.h"
+#include "eeprom.h"
 #include "string.h"
 #include "json.h"
 #include "service.h"
@@ -26,6 +26,7 @@ json_report_open_status_t    report_open;
 json_report_close_status_t   report_close;
 json_report_device_status_t  report_device;
 
+extern info_head_t info_head;
 
 static void shopping_task_init()
 {
@@ -73,6 +74,7 @@ void shopping_task(void const * argument)
  app_bool_t result;
  uint8_t param_size;
  json_item_t item;
+ app_bool_t lock_success;
  APP_LOG_INFO("@购货任务开始.\r\n");
  
  shopping_task_init();
@@ -109,15 +111,20 @@ void shopping_task(void const * argument)
    }
   }
   } 
- /*首先查看是否保存未上报信息*/
- result=flash_read_unreport_close_info(report_close.open_uuid.value,report_close.user_pin.value,report_close.type.value);
- /*如果有未上报*/
+ /*首先查看是否保存未上报信息 如果有未上报*/
+  /*
+ result=eeprom_read_unreport_close_info_head(&info_head);
+
  if(result==APP_TRUE)
  {
+  if(info_head.valid==APP_TRUE)
+  {
   APP_LOG_WARNING("存在未上报信息.\r\n");
   goto report_close;  
+  }
  }
  APP_LOG_WARNING("不存在未上报信息.流程继续...\r\n");
+*/
  while(1)
  {
   osDelay(SHOPPING_TASK_INTERVAL); 
@@ -177,12 +184,14 @@ void shopping_task(void const * argument)
   {
   json_set_item_name_value(&report_open.open,NULL,"true");
   json_set_item_name_value(&report_open.error,NULL,"0");
+  lock_success=APP_TRUE;
   APP_LOG_DEBUG("开锁成功.\r\n");
   }
   else
   {
   json_set_item_name_value(&report_open.open,NULL,"false");
   json_set_item_name_value(&report_open.error,NULL,"4");
+  lock_success=APP_FALSE;
   APP_LOG_DEBUG("开锁失败.\r\n");  
   }
   
@@ -209,8 +218,18 @@ void shopping_task(void const * argument)
   } 
   APP_LOG_INFO("上报开锁状态成功.\r\n");
   
-  flash_write_unreport_close_info(report_close.open_uuid.value,report_close.user_pin.value,report_close.type.value);
-  
+  if(lock_success==APP_FALSE)
+  continue;
+  /*
+  APP_LOG_DEBUG("购物任务保存上报信息.\r\n");
+  info_head.valid=APP_TRUE;
+  info_head.open_uuid_str_cnt=strlen((const char *)report_close.open_uuid.value)+1;
+  info_head.user_pin_str_cnt=strlen((const char *)report_close.user_pin.value)+1;
+  info_head.type_str_cnt=strlen((const char *)report_close.type.value)+1;
+   
+  eeprom_write_unreport_close_info(&info_head,report_close.open_uuid.value,report_close.user_pin.value,report_close.type.value);
+  eeprom_write_unreport_close_info_head(&info_head);
+  */
   /*服务器回应code:"0"*/
   /*等待关门*/
   while(1)
@@ -231,10 +250,17 @@ void shopping_task(void const * argument)
    json_set_item_name_value(&report_close.auto_lock,NULL,"1");
    break;
    }
+   if(sig.value.signals & SHOPPING_TASK_UPS_PWR_ON_SIGNAL)
+   {
+   APP_LOG_DEBUG("购物任务收到UPS接通市电信号.\r\n");
+   }
+   if(sig.value.signals & SHOPPING_TASK_UPS_PWR_OFF_SIGNAL)
+   {
+   APP_LOG_DEBUG("购物任务收到UPS断开市电信号.\r\n");
+   }
+   }
   }
-  }
-
- report_close:  
+ //report_close:  
   /*上报关门状态*/  
   shopping_request.ptr_url=REPORT_CLOSE_URL;
   if(json_body_to_str(&report_close,shopping_request.param)!=APP_TRUE)
@@ -257,7 +283,11 @@ void shopping_task(void const * argument)
   APP_LOG_ERROR("上报关门状态失败.\r\n");
   osDelay(SHOPPING_TASK_RETRY_TIMEOUT);
   }
-  flash_erase_unreport_close_info();
   APP_LOG_INFO("上报关门状态成功.\r\n");
+  /*
+  APP_LOG_DEBUG("购物任务无效上报信息.\r\n");
+  info_head.valid=APP_FALSE;
+  eeprom_write_unreport_close_info_head(&info_head);
+*/
  }
-}
+ }

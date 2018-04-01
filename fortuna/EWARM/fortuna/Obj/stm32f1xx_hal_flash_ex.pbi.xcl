@@ -28,7 +28,7 @@ D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/at_cmd_set/port
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/json
 -I
-D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/flash
+D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../Src/eeprom
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\EWARM/../libraries/app_log
 -I
@@ -80,7 +80,7 @@ D:\development\st\stm32\src_code\abx081\fortuna\Src\at_cmd_set\port
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\Src\json
 -I
-D:\development\st\stm32\src_code\abx081\fortuna\Src\flash
+D:\development\st\stm32\src_code\abx081\fortuna\Src\eeprom
 -I
 D:\development\st\stm32\src_code\abx081\fortuna\libraries\app_log
 -I
@@ -362,7 +362,6 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\CMSIS\Include
 -D__EDG_FLOAT128_ENABLING_POSSIBLE=0
 -DUSE_HAL_DRIVER=1
 -DSTM32F103xE=1
--DFLASH_BANK2_END=0x8007ffff
 -D_DLIB_CONFIG_FILE_HEADER_NAME=u8"C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.0\\arm\\INC\\c\\DLib_Config_Full.h"
 -D_DLIB_CONFIG_FILE_STRING=u8"C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.0\\arm\\INC\\c\\DLib_Config_Full.h"
 -D__VERSION__="IAR ANSI C/C++ Compiler V8.11.2.13589/W32 for ARM"

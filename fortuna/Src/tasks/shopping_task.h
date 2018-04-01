@@ -18,7 +18,9 @@ extern osThreadId shopping_task_hdl;
 #define  SHOPPING_TASK_UNLOCK_LOCK_SUCCESS_SIGNAL         (1<<3)
 #define  SHOPPING_TASK_UNLOCK_LOCK_FAIL_SIGNAL            (1<<4)
 #define  SHOPPING_TASK_DOOR_OPEN_SIGNAL                   (1<<5)
-#define  SHOPPING_TASK_ALL_SIGNALS                        ((1<<6)-1)
+#define  SHOPPING_TASK_UPS_PWR_ON_SIGNAL                  (1<<6)
+#define  SHOPPING_TASK_UPS_PWR_OFF_SIGNAL                 (1<<7)
+#define  SHOPPING_TASK_ALL_SIGNALS                        ((1<<8)-1)
 
 /*同步事件*/
 #define  SHOPPING_TASK_SYNC_EVT                           (1<<1)
