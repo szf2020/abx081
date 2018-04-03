@@ -16,8 +16,7 @@
 osThreadId temperature_task_hdl;
 
 
-
-static void update_temperature_warning();
+static void update_average_temperature_changed_event();
 static void update_average_temperature();
 
 /*温度ADC单次的取样值*/
@@ -41,6 +40,7 @@ typedef struct
   t_direction_t dir;
   int16_t temperature;
   uint32_t hold_time;
+  app_bool_t changed;
 }temperature_ctl_t;
 
 
@@ -76,7 +76,14 @@ static void update_average_temperature()
   temp=get_temperature(i);
   if(temp==TEMPERATURE_TASK_ERR_T_VALUE)
   {
-  average_temperature.temperature= TEMPERATURE_TASK_ERR_T_VALUE;
+  if(average_temperature.temperature!= TEMPERATURE_TASK_ERR_T_VALUE)
+  {
+  average_temperature.changed=APP_TRUE;
+  average_temperature.temperature=TEMPERATURE_TASK_ERR_T_VALUE; 
+  }
+  else
+  average_temperature.changed=APP_FALSE;
+   
   return;
   }
   t+=temp;
@@ -87,6 +94,7 @@ static void update_average_temperature()
  {
   average_temperature.temperature=t;
   average_temperature.hold_time=T_HOLD_TIME;/*方向随时可变*/
+  average_temperature.changed=APP_TRUE;
   return;
  }
  
@@ -102,38 +110,24 @@ if((t > average_temperature.temperature && average_temperature.dir == T_INCREASE
   
    /*当前温度是增加的*/
   average_temperature.temperature=t;
-  average_temperature.hold_time=0;  
+  average_temperature.hold_time=0; 
+  average_temperature.changed=APP_TRUE;
 }
 else
-average_temperature.hold_time+=TEMPERATURE_SAMPLE_TIME;  
-
-}
-
-static void update_temperature_warning()
 {
- static app_bool_t is_high_t_warning_send=APP_FALSE;
- static app_bool_t is_low_t_warning_send=APP_FALSE;
- 
- if(average_temperature.temperature!=TEMPERATURE_TASK_ERR_T_VALUE && \
-    average_temperature.temperature>COMPRESSOR_TASK_T_MAX         && \
-    is_high_t_warning_send==APP_FALSE)
-  {
-   APP_LOG_DEBUG("向压缩机发送开压缩机信号.\r\n");
-   osSignalSet(compressor_task_hdl,COMPRESSOR_TASK_PWR_TURN_ON_SIGNAL);
-   is_high_t_warning_send=APP_TRUE;
-   is_low_t_warning_send=APP_FALSE;
-  }
- if((average_temperature.temperature==TEMPERATURE_TASK_ERR_T_VALUE || \
-    average_temperature.temperature<COMPRESSOR_TASK_T_MIN) && is_low_t_warning_send==APP_FALSE)
-  {
-   APP_LOG_DEBUG("向压缩机发送关压缩机信号.\r\n");
-   osSignalSet(compressor_task_hdl,COMPRESSOR_TASK_PWR_TURN_OFF_SIGNAL);
-   is_high_t_warning_send=APP_FALSE;
-   is_low_t_warning_send=APP_TRUE;
-  }
-
+average_temperature.hold_time+=TEMPERATURE_SAMPLE_TIME;  
+average_temperature.changed=APP_FALSE;
+}
 }
 
+static void update_average_temperature_changed_event()
+{
+  if(average_temperature.changed == APP_TRUE)
+  {
+  APP_LOG_DEBUG("温度变化.向压缩机任务发送温度变化信号.\r\n");
+  osSignalSet(compressor_task_hdl,COMPRESSOR_TASK_TEMPERATURE_CHANGED_SIGNAL);
+  }
+}
 
 int16_t get_temperature(uint8_t t_idx)
 {
@@ -265,7 +259,6 @@ void temperature_task(void const * argument)
  }
  /*计算更新平均值*/
  update_average_temperature();
- /*更新温度警告*/
- update_temperature_warning();
+ update_average_temperature_changed_event();
  }
 }
