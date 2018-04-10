@@ -22,6 +22,7 @@ osThreadId report_task_hdl;
 
 static http_response_t report_response;
 static http_request_t  report_request;
+static uint8_t ip_str[20];
 
 EventGroupHandle_t task_sync_evt_group_hdl;
 
@@ -48,7 +49,7 @@ void report_task(void const * argument)
  /*串号--MAC地址*/
   /* 暂时需要固定imei值 
   service_cpy_imei_str_to(report_device.pid.value);
-  service_cpy_imei_str_to(report_device.push_id.value); 
+  service_cpy_imei_str_to_ex(report_device.push_id.value); 
   */
   
   while(1)
@@ -61,8 +62,10 @@ void report_task(void const * argument)
   /*获取IP地址 这个是随着复位变化的所以要每一次读取*/
   do
   {
-  result=service_get_ip_str(report_device.ip.value);
+  result=service_get_ip_str(ip_str);
   }while(result==APP_FALSE); 
+  service_cpy_ip_str_ex(report_device.ip.value,ip_str);
+  
   
  /*信号质量 这个是变化的所以要每一次读取*/
   do

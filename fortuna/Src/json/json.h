@@ -5,7 +5,8 @@ typedef enum
 {
   JSON_TYPE_STR,
   JSON_TYPE_INT,
-  JSON_TYPE_BOOL
+  JSON_TYPE_BOOL,
+  JSON_TYPE_NEST_STR
 }json_item_type_t;
 
 #define  JSON_ITEM_NAME_MAX_SIZE       16
@@ -54,6 +55,8 @@ typedef struct
 {
  json_header_t header;
  json_item_t pid;
+ json_item_t type;
+ json_item_t log;
  json_item_t version;
  json_item_t ip;
  json_item_t m_power;
@@ -72,7 +75,7 @@ app_bool_t json_find_cpy_json_str_to(uint8_t *ptr_str_buff,uint8_t *ptr_json_str
 
 app_bool_t json_set_item_name_value(json_item_t *ptr_item,uint8_t *ptr_name,uint8_t *ptr_value);
 
-app_bool_t json_body_to_str(void *ptr_json_body,uint8_t *ptr_jon_str);
+app_bool_t json_body_to_str(void *ptr_json_body,uint8_t *ptr_json_str);
 
 
 
