@@ -9,13 +9,17 @@
 #define  CHINA_UNICOM_2G_CODE_STR                       "32"
 
 #define  FIRMWARE_VERSION                               "\"13\""
+#define  FIRMWARE_VERSION_EX                            "\\\"13\\\""
 #define  EXPERIMENT_IMEI                                "\"011201711022810\""  
 #define  EXPERIMENT_IMEI_EX                             "\\\"011201711022810\\\""  
-#define  EXPERIMENT_IP                                  "\"12.34.56.78\""
+#define  EXPERIMENT_IP_EX                               "\\\"12.34.56.78\\\""
 #define  EXPERIMENT_RSSI                                "29"
 #define  EXPERIMENT_NET                                 CHINA_MOBILE_2G_CODE_STR
 
 
+#define  SERVICE_MODE_IN_EXPERIMENT                     1
+#define  SERVICE_MODE_IN_PRODUCTION                     2
+#define  SERVICE_MODE                                   SERVICE_MODE_IN_EXPERIMENT                    
 
 
 

@@ -51,13 +51,13 @@ json_set_item_name_value(&report_close.type,"\"type\"",NULL);
 json_set_item_name_value(&report_close.auto_lock,"\"autoLock\"",NULL); 
 /*设备状态上报json*/
 report_device.header.item_cnt=3;
-
 json_set_item_name_value(&report_device.pid,"\"pid\"",EXPERIMENT_IMEI); 
 json_set_item_name_value(&report_device.type,"\"type\"","2"); 
 json_set_item_name_value(&report_device.log,"\"log\"",NULL); 
 report_device.log.value[0]=10;
-json_set_item_name_value(&report_device.version,"\\\"version\\\"",FIRMWARE_VERSION);    
-json_set_item_name_value(&report_device.ip,"\\\"ip\\\"",EXPERIMENT_IP);  
+report_device.log.type=JSON_TYPE_NEST_STR;
+json_set_item_name_value(&report_device.version,"\\\"version\\\"",FIRMWARE_VERSION_EX);    
+json_set_item_name_value(&report_device.ip,"\\\"ip\\\"",EXPERIMENT_IP_EX);  
 json_set_item_name_value(&report_device.m_power,"\\\"mPower\\\"","1"); /*主电源状态*/
 json_set_item_name_value(&report_device.e_power,"\\\"ePower\\\"","1"); /*备用电源状态*/ 
 json_set_item_name_value(&report_device.lock,"\\\"lock\\\"","1");  /*锁状态*/ 
@@ -68,9 +68,13 @@ json_set_item_name_value(&report_device.boot,"\\\"boot\\\"","1");  /*启动状�
 json_set_item_name_value(&report_device.temperature,"\\\"temperature\\\"","12"); /*温度*/   
 }
 
+
+/*测试代码*/
 //uint8_t emulate[]="{\"result\":{\"expire\":\"1521080916800\",\"token\":\"e76aebcfa6096a70994d69e5811430c3d3836a4a\",\"data\":{\"userPin\":\"JD_20874f3ca9d474f\",\"type\":0},\"uuid\":\"30bbf00e09664194b0d2442a0210dace\"},\"code\":\"0\",\"msg\":\"成功\"}";
-
-
+/*
+static uint8_t str[300];
+static uint8_t ip[]="\"12.23.34.56\"";
+*/
 /*购物流程任务*/
 void shopping_task(void const * argument)
 {
@@ -82,18 +86,33 @@ void shopping_task(void const * argument)
  APP_LOG_INFO("@购货任务开始.\r\n");
  
  shopping_task_init();
-  
+/*测试代码*/
+/*
+ while(1)
+ {
+  service_cpy_ip_str_ex(report_device.ip.value,ip);
+  service_cpy_imei_str_to(report_device.pid.value);
+  service_cpy_imei_str_to_ex(report_device.push_id.value);
+  json_body_to_str_ex(&report_device,str);
+  APP_LOG_DEBUG("str:\r\n%s\r\n",str);
+  osDelay(1000);
+ }
+*/
+ 
  APP_LOG_DEBUG("购物任务初始化成功.\r\n");
  APP_LOG_DEBUG("购物任务等待同步完成...\r\n");
  /*等待任务同步*/
  xEventGroupSync(task_sync_evt_group_hdl,SHOPPING_TASK_SYNC_EVT,SHOPPING_TASK_SYNC_EVT|REPORT_TASK_SYNC_EVT,osWaitForever); 
  APP_LOG_DEBUG("购物任务同步完成.\r\n");
- /*拷贝需要的imei*/
- /*
+ 
+ /*如果在产品模式拷贝需要的imei*/
+ if(SERVICE_MODE==SERVICE_MODE_IN_PRODUCTION)
+ {
  service_cpy_imei_str_to(pull_open.pid.value);
  service_cpy_imei_str_to(report_open.pid.value);
  service_cpy_imei_str_to(report_close.pid.value);
- */
+ }
+ 
  /*上电等待关门*/
   while(1)
   {

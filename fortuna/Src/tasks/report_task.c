@@ -37,6 +37,7 @@ void report_task(void const * argument)
   json_item_t item;
   
   APP_LOG_INFO("@上报设备状态任务开始.\r\n");
+  
   /*复位*/
   service_reset();   
   APP_LOG_DEBUG("上报设备状态任务等待同步完成...\r\n");
@@ -46,11 +47,14 @@ void report_task(void const * argument)
   
  /*获取运营商字符*/
   service_cpy_operator_str_to(report_device.net.value);
+  
  /*串号--MAC地址*/
-  /* 暂时需要固定imei值 
+ /*如果在产品模式拷贝需要的imei*/
+ if(SERVICE_MODE==SERVICE_MODE_IN_PRODUCTION)
+ {
   service_cpy_imei_str_to(report_device.pid.value);
   service_cpy_imei_str_to_ex(report_device.push_id.value); 
-  */
+ }
   
   while(1)
   {

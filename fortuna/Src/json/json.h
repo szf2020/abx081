@@ -76,7 +76,8 @@ app_bool_t json_find_cpy_json_str_to(uint8_t *ptr_str_buff,uint8_t *ptr_json_str
 app_bool_t json_set_item_name_value(json_item_t *ptr_item,uint8_t *ptr_name,uint8_t *ptr_value);
 
 app_bool_t json_body_to_str(void *ptr_json_body,uint8_t *ptr_json_str);
-
+/*针对长字符串嵌套对象*/
+app_bool_t json_body_to_str_ex(void *ptr_json_body,uint8_t *ptr_json_str);
 
 
 
