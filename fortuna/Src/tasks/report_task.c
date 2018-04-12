@@ -100,7 +100,7 @@ void report_task(void const * argument)
   
   /*上报开始*/
   report_request.ptr_url=REPORT_DEVICE_URL;
-  if(json_body_to_str(&report_device,report_request.param)!=APP_TRUE)
+  if(json_body_to_str_ex(&report_device,report_request.param)!=APP_TRUE)
   {
   APP_LOG_ERROR("report param err.\r\n");
   }
@@ -113,7 +113,7 @@ void report_task(void const * argument)
   json_set_item_name_value(&item,"code",NULL);
   json_get_item_value_by_name_from_json_str(report_response.json_str,item.name,item.value); 
   /*服务器回应code:"0"*/
-  if(strcmp((const char *)item.value,"\"0\"")==0)
+  if(strcmp((const char *)item.value,"0")==0)
   break;
   }
   APP_LOG_ERROR("上报设备状态失败.\r\n");

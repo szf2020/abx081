@@ -243,7 +243,7 @@ static void create_user_tasks()
   watch_dog_task_hdl = osThreadCreate(osThread(watch_dog_task), NULL); 
   APP_ASSERT(watch_dog_task_hdl);
   
-  osThreadDef(compressor_task, compressor_task, osPriorityNormal, 0, 128);
+  osThreadDef(compressor_task, compressor_task, osPriorityNormal, 0, 256);
   compressor_task_hdl = osThreadCreate(osThread(compressor_task), NULL); 
   APP_ASSERT(compressor_task_hdl);
   

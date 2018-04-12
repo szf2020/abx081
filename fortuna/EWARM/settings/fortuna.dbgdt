@@ -959,7 +959,7 @@
                     <item>status</item>
                     <item>str</item>
                     <item>str</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>
