@@ -1,6 +1,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "cmsis_os.h"
+#include "app_common.h"
 #include "at_cmd_set.h"
 #include "at_cmd_port_timer.h"
 #define APP_LOG_MODULE_NAME   "[at_cmd_timer]"

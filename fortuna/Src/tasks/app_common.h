@@ -9,9 +9,13 @@ APP_FALSE=0
 }app_bool_t;
 
 
+#if   defined ( __CC_ARM ) 
+#pragma diag_suppress 870,1,1295
+#pragma anon_unions
 
 
 
+#endif
 
 
 

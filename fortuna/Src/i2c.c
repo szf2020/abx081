@@ -88,12 +88,12 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
     /* I2C1 clock enable */
     __HAL_RCC_I2C1_CLK_ENABLE();
     GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;      //此行原有
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;   //GPIO配置为输出
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;         //强上拉
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;   //GPIO配置为输�?
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;         //强上�?
     HAL_GPIO_Init(GPIOB,&GPIO_InitStruct);
     HAL_GPIO_WritePin(GPIOB, 6, GPIO_PIN_SET);       //拉高SCL
     HAL_GPIO_WritePin(GPIOB, 7, GPIO_PIN_SET);       //拉高SDA
-    i2cHandle->Instance->CR1= I2C_CR1_SWRST;          //复位I2C控制器
+    i2cHandle->Instance->CR1= I2C_CR1_SWRST;          //复位I2C控制�?
     i2cHandle->Instance->CR1= 0; 
   /* USER CODE END I2C1_MspInit 0 */
   
