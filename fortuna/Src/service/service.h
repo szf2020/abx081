@@ -8,13 +8,18 @@
 #define  CHINA_MOBILE_2G_CODE_STR                       "12"
 #define  CHINA_UNICOM_2G_CODE_STR                       "32"
 
-#define  FIRMWARE_VERSION                               "\"12\""
+#define  FIRMWARE_VERSION                               "\"13\""
+#define  FIRMWARE_VERSION_EX                            "\\\"13\\\""
 #define  EXPERIMENT_IMEI                                "\"011201711022810\""  
-#define  EXPERIMENT_IP                                  "\"12.34.56.78\""
+#define  EXPERIMENT_IMEI_EX                             "\\\"011201711022810\\\""  
+#define  EXPERIMENT_IP_EX                               "\\\"12.34.56.78\\\""
 #define  EXPERIMENT_RSSI                                "29"
 #define  EXPERIMENT_NET                                 CHINA_MOBILE_2G_CODE_STR
 
 
+#define  SERVICE_MODE_IN_EXPERIMENT                     1
+#define  SERVICE_MODE_IN_PRODUCTION                     2
+#define  SERVICE_MODE                                   SERVICE_MODE_IN_EXPERIMENT                    
 
 
 
@@ -65,8 +70,12 @@ void service_http_make_request_size_time_to_str(uint16_t size,uint16_t time,uint
 app_bool_t service_get_rssi_str(uint8_t *ptr_rssi_str);
 /*获取IP地址字符串*/
 app_bool_t service_get_ip_str(uint8_t *ptr_ip_str);
+/*拷贝ip嵌套字符串*/
+app_bool_t service_cpy_ip_str_ex(uint8_t *ptr_dest,uint8_t *ptr_src);
 /*拷贝imei*/
 app_bool_t service_cpy_imei_str_to(uint8_t *ptr_imei_str);
+/*拷贝imei 拓展用于嵌套字符串*/
+app_bool_t service_cpy_imei_str_to_ex(uint8_t *ptr_imei_str);
 /*拷贝运营商代码*/
 app_bool_t service_cpy_operator_str_to(uint8_t *ptr_imei_str);
 

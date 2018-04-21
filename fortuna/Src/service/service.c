@@ -34,7 +34,7 @@ static app_bool_t service_get_operator_str(uint8_t *ptr_operator_str);
 static app_bool_t service_get_imei_str(uint8_t *ptr_imei_str);
 
 static uint8_t operator_str[5];
-static uint8_t imei_str[20];
+static uint8_t imei_str[20]="123456789";
 
 void service_mutex_init()
 {
@@ -536,7 +536,20 @@ err_handle:
  return result;
 }
 
-
+/*拷贝ip嵌套字符串*/
+app_bool_t service_cpy_ip_str_ex(uint8_t *ptr_dest,uint8_t *ptr_src)
+{
+ if(ptr_dest==NULL||ptr_src==NULL)
+   return APP_FALSE;
+ 
+ *ptr_dest++='\\';
+ strcpy((char *)ptr_dest,(const char *)ptr_src);
+ ptr_dest+=strlen((const char*)ptr_src);
+ *(ptr_dest-1)='\\';
+ *ptr_dest++='\"';
+ *ptr_dest=0;
+ return APP_TRUE; 
+}
 /*获取运营商字符串*/
 static app_bool_t service_get_operator_str(uint8_t *ptr_operator_str)
 {
@@ -620,10 +633,29 @@ app_bool_t service_cpy_imei_str_to(uint8_t *ptr_imei_str)
 {
  if(ptr_imei_str==NULL)
    return APP_FALSE;
+ *ptr_imei_str++='\"';
  strcpy((char *)ptr_imei_str,(const char *)imei_str);
- 
+ ptr_imei_str+=strlen((const char*)imei_str);
+ *ptr_imei_str++='\"';
+ *ptr_imei_str=0;
  return APP_TRUE;
 }
+
+/*拷贝imei 拓展用于嵌套字符串*/
+app_bool_t service_cpy_imei_str_to_ex(uint8_t *ptr_imei_str)
+{
+ if(ptr_imei_str==NULL)
+   return APP_FALSE;
+ *ptr_imei_str++='\\';
+ *ptr_imei_str++='\"';
+ strcpy((char *)ptr_imei_str,(const char *)imei_str);
+ ptr_imei_str+=strlen((const char*)imei_str);
+ *ptr_imei_str++='\\';
+ *ptr_imei_str++='\"';
+ *ptr_imei_str=0;
+ return APP_TRUE;
+}
+
 /*拷贝运营商代码*/
 app_bool_t service_cpy_operator_str_to(uint8_t *ptr_operator_str)
 {

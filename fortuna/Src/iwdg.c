@@ -71,7 +71,7 @@ void MX_IWDG_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
-void sys_feed_dog()
+void sys_feed_dog(void)
 {
   HAL_StatusTypeDef status;
   status= HAL_IWDG_Refresh(&hiwdg);

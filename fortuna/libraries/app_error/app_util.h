@@ -1,10 +1,10 @@
-#ifndef APP_UTIL_H__
-#define APP_UTIL_H__
+#ifndef __APP_UTIL_H__
+#define __APP_UTIL_H__
 
 #include "stdio.h"
 #include "stdint.h"
 #include "stdbool.h"
-
+#include "stm32f1xx.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,21 +81,7 @@ extern "C" {
 #define UNUSED_PARAMETER(X) UNUSED_VARIABLE(X)
 #define UNUSED_RETURN_VALUE(X) UNUSED_VARIABLE(X)
       
-#if   defined ( __CC_ARM )
-  #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler          */
-  #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */
-  #define __STATIC_INLINE  static __inline
 
-#elif defined ( __GNUC__ )
-  #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */
-  #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */
-  #define __STATIC_INLINE  static inline
-
-#elif defined ( __ICCARM__ )
-  #define __ASM            __asm                                      /*!< asm keyword for IAR Compiler          */
-  #define __INLINE         inline                                     /*!< inline keyword for IAR Compiler. Only available in High optimization mode! */
-  #define __STATIC_INLINE  static inline
-#endif
 
 /**@brief Macro for performing rounded integer division (as opposed to truncating the result).
  *

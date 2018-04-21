@@ -18,7 +18,7 @@ extern EventGroupHandle_t task_sync_evt_group_hdl;
 
 #define  REPORT_TASK_SYNC_EVT                      (1<<0)
 
-#define  REPORT_DEVICE_URL                          "\"URL\",\"http://rack-brain-app-pre.jd.com/brain/reportDeviceStatus\""
+#define  REPORT_DEVICE_URL                          "\"URL\",\"http://rack-logcollect.jd.com/log/logging\""
 
 
 #endif

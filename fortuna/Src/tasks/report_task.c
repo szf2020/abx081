@@ -22,6 +22,7 @@ osThreadId report_task_hdl;
 
 static http_response_t report_response;
 static http_request_t  report_request;
+static uint8_t ip_str[20];
 
 EventGroupHandle_t task_sync_evt_group_hdl;
 
@@ -36,6 +37,7 @@ void report_task(void const * argument)
   json_item_t item;
   
   APP_LOG_INFO("@上报设备状态任务开始.\r\n");
+  
   /*复位*/
   service_reset();   
   APP_LOG_DEBUG("上报设备状态任务等待同步完成...\r\n");
@@ -45,11 +47,14 @@ void report_task(void const * argument)
   
  /*获取运营商字符*/
   service_cpy_operator_str_to(report_device.net.value);
+  
  /*串号--MAC地址*/
-  /* 暂时需要固定imei值 
+ /*如果在产品模式拷贝需要的imei*/
+ if(SERVICE_MODE==SERVICE_MODE_IN_PRODUCTION)
+ {
   service_cpy_imei_str_to(report_device.pid.value);
-  service_cpy_imei_str_to(report_device.push_id.value); 
-  */
+  service_cpy_imei_str_to_ex(report_device.push_id.value); 
+ }
   
   while(1)
   {
@@ -61,8 +66,10 @@ void report_task(void const * argument)
   /*获取IP地址 这个是随着复位变化的所以要每一次读取*/
   do
   {
-  result=service_get_ip_str(report_device.ip.value);
+  result=service_get_ip_str(ip_str);
   }while(result==APP_FALSE); 
+  service_cpy_ip_str_ex(report_device.ip.value,ip_str);
+  
   
  /*信号质量 这个是变化的所以要每一次读取*/
   do
@@ -93,7 +100,7 @@ void report_task(void const * argument)
   
   /*上报开始*/
   report_request.ptr_url=REPORT_DEVICE_URL;
-  if(json_body_to_str(&report_device,report_request.param)!=APP_TRUE)
+  if(json_body_to_str_ex(&report_device,report_request.param)!=APP_TRUE)
   {
   APP_LOG_ERROR("report param err.\r\n");
   }
@@ -106,7 +113,7 @@ void report_task(void const * argument)
   json_set_item_name_value(&item,"code",NULL);
   json_get_item_value_by_name_from_json_str(report_response.json_str,item.name,item.value); 
   /*服务器回应code:"0"*/
-  if(strcmp((const char *)item.value,"\"0\"")==0)
+  if(strcmp((const char *)item.value,"0")==0)
   break;
   }
   APP_LOG_ERROR("上报设备状态失败.\r\n");
